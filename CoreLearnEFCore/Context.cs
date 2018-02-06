@@ -10,14 +10,20 @@ namespace CoreLearnEFCore
     {
         public TestDbContext(DbContextOptions options):base(options)
         {
+            Database.EnsureCreated();
+        }
+        public TestDbContext()
+        {
 
         }
+
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Book> Books { get; set; }
         public DbSet<Man> Mans { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
