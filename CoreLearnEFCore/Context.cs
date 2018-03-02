@@ -19,6 +19,7 @@ namespace CoreLearnEFCore
 
         protected  override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration()
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<Person> Persons { get; set; }
