@@ -11,9 +11,10 @@ using System;
 namespace EFCoreRelationship.Migrations
 {
     [DbContext(typeof(EFCoreRelationContext))]
-    partial class EFCoreRelationContextModelSnapshot : ModelSnapshot
+    [Migration("20180302075622_onetoone2")]
+    partial class onetoone2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,13 +68,13 @@ namespace EFCoreRelationship.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(true);
 
-                    b.Property<Guid?>("StudentInfoId")
-                        .IsRequired();
+                    b.Property<Guid?>("StudentInfoId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StudentInfoId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[StudentInfoId] IS NOT NULL");
 
                     b.ToTable("User");
                 });
@@ -90,8 +91,7 @@ namespace EFCoreRelationship.Migrations
                 {
                     b.HasOne("EFCoreRelationship.StudentInfo", "StudentInfo")
                         .WithOne("User")
-                        .HasForeignKey("EFCoreRelationship.User", "StudentInfoId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("EFCoreRelationship.User", "StudentInfoId");
                 });
 #pragma warning restore 612, 618
         }

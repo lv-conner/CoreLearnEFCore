@@ -18,6 +18,7 @@ namespace EFCoreRelationship
         {
             modelBuilder.ApplyConfiguration(new UserMap());
             modelBuilder.ApplyConfiguration(new BookMap());
+            modelBuilder.ApplyConfiguration(new StudentInfoMap());
             base.OnModelCreating(modelBuilder);
         }
     }

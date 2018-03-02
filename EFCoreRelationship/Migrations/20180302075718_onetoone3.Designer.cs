@@ -11,9 +11,10 @@ using System;
 namespace EFCoreRelationship.Migrations
 {
     [DbContext(typeof(EFCoreRelationContext))]
-    partial class EFCoreRelationContextModelSnapshot : ModelSnapshot
+    [Migration("20180302075718_onetoone3")]
+    partial class onetoone3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
