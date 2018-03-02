@@ -13,6 +13,7 @@ namespace EFCoreRelationship
         {
             //builder.ForSqlServerIsMemoryOptimized(true);
             builder.HasKey(p => p.Id);
+            builder.Property(p => p.Name).HasMaxLength(50).IsUnicode();
             builder.HasMany(p => p.Books).WithOne(p => p.User).HasForeignKey(p => p.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
