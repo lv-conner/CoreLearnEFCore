@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Reflection;
+using System.Linq;
 
 namespace EFCoreRelationship
 {
@@ -16,9 +18,16 @@ namespace EFCoreRelationship
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new UserMap());
-            modelBuilder.ApplyConfiguration(new BookMap());
-            modelBuilder.ApplyConfiguration(new StudentInfoMap());
+            var registType = Assembly.GetExecutingAssembly().GetTypes().Where(p => p.GetInterface(typeof(IEntityTypeConfiguration<>).FullName) != null && p.Name.EndsWith("Map"));
+            foreach (var item in registType)
+            {
+                dynamic configInstance = Activator.CreateInstance(item);
+                modelBuilder.ApplyConfiguration(configInstance);
+
+            }
+            //modelBuilder.ApplyConfiguration(new UserMap());
+            //modelBuilder.ApplyConfiguration(new BookMap());
+            //modelBuilder.ApplyConfiguration(new StudentInfoMap());
             base.OnModelCreating(modelBuilder);
         }
     }
